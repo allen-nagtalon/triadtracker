@@ -1,6 +1,6 @@
 import http.client
 import json
-from triadtrackerapp.models import TriadCard
+from .models import TriadCard
 from django.shortcuts import render
 
 def populateCards(request):
