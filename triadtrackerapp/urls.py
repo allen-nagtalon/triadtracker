@@ -5,4 +5,5 @@ app_name = 'triadtracker'
 
 urlpatterns = [
     path('populate-cards', views.populateCards),
+    path('cards/', views.TriadCardList.as_view()),
 ]

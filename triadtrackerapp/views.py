@@ -1,6 +1,8 @@
 import http.client
 import json
+from triadtrackerapp.serializers import TriadCardSerializer
 from .models import TriadCard
+from rest_framework import generics
 from django.shortcuts import render
 
 def populateCards(request):
@@ -31,3 +33,7 @@ def populateCards(request):
         print("Card #{}: \"{}\" added.".format(card['id'], card['name']))
 
     return render(request, "index.html")
+
+class TriadCardList(generics.ListAPIView):
+    queryset = TriadCard.objects.all()
+    serializer_class = TriadCardSerializer
