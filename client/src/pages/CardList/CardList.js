@@ -18,7 +18,7 @@ const CardList = props => {
     }, []);
 
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="md">
             <CardTable cards={cardsState.cards}/>
         </Container>
     )

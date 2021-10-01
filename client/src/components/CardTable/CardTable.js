@@ -56,25 +56,25 @@ function stableSort(array, comparator) {
 const headCells = [
   {
     id: 'id',
-    numeric: true,
+    centered: true,
     disablePadding: true,
     label: '#'
   },
   {
     id: 'name',
-    numeric: false,
+    centered: false,
     disablePadding: false,
     label: 'Name'
   },
   {
     id: 'stars',
-    numeric: false,
+    centered: false,
     disablePadding: false,
     label: 'Stars'
   },
   {
     id: 'stats',
-    numeric: false,
+    centered: true,
     disablePadding: false,
     label: 'Stats'
   },
@@ -93,7 +93,7 @@ const EnhancedTableHead = (props) => {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'center' : 'left'}
+            align={headCell.centered ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -212,8 +212,8 @@ const CardTable = (props) => {
                       <TableCell align="left">
                         <img src={row.icon} alt="cardicon" style={{ height: "60px", padding: 5, marginRight: '7px' }} align="center" />{row.name}
                       </TableCell>
-                      <TableCell align="right">{row.stars}</TableCell>
-                      <TableCell align="right">{row.top}{row.right}{row.bottom}{row.left}</TableCell>
+                      <TableCell align="left">{row.stars}</TableCell>
+                      <TableCell align="center">{row.top}{row.right}{row.bottom}{row.left}</TableCell>
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
