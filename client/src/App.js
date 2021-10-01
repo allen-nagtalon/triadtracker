@@ -9,23 +9,14 @@ import CardList from './pages/CardList'
 import NavBar from './components/NavBar'
 
 const theme = createTheme({
-  // palette: {
-  //   type: 'dark',
-  //   primary: {
-  //     main: '#7684a5'
-  //   },
-  //   secondary: {
-  //     main: '#587d86'
-  //   },
-  //   text: {
-  //     secondary: grey[100]
-  //   }
-  // },
-  // typography: {
-  //   h6: {
-  //     fontWeight: 100
-  //   }
-  // }
+  palette: {
+    type: 'dark',
+  },
+  typography: {
+    h6: {
+      fontWeight: 100
+    }
+  }
 })
 
 function App() {

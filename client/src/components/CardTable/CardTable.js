@@ -12,12 +12,11 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(id, name, icon, image, stars, top, right, bottom, left) {
+function createData(id, name, icon, stars, top, right, bottom, left) {
   return {
     id,
     name,
     icon,
-    image,
     stars,
     top,
     right,
@@ -82,7 +81,7 @@ const headCells = [
 ]
 
 const EnhancedTableHead = (props) => {
-  const { order, orderBy, rowCount, onRequestSort } =
+  const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -94,7 +93,7 @@ const EnhancedTableHead = (props) => {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -136,10 +135,10 @@ const CardTable = (props) => {
       card.name, 
       card.icon, 
       card.stars, 
-      card.top, 
-      card.right, 
-      card.bottom, 
-      card.left)
+      card.topValue, 
+      card.rightValue, 
+      card.bottomValue, 
+      card.leftValue)
   )
   
   const handleRequestSort = (event, property) => {
@@ -172,7 +171,7 @@ const CardTable = (props) => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper sx={{ width: '100%', my: 3 }}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -186,8 +185,6 @@ const CardTable = (props) => {
               rowCount={rows.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
@@ -208,6 +205,7 @@ const CardTable = (props) => {
                         id={labelId}
                         scope="row"
                         padding="none"
+                        align="center"
                       >
                         {row.id}
                       </TableCell>
