@@ -11,6 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
+import { Typography } from '@mui/material';
 
 function createData(id, name, icon, stars, top, right, bottom, left) {
   return {
@@ -124,6 +125,32 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
+const StatsGrid = (props) => {
+  return (
+    <Box
+      sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      }}
+    >
+      <Box sx={{ justifyContent: 'center' }}>
+        <Typography>{props.top}</Typography>
+      </Box>
+      <Box sx={{ 
+        justifyContent: 'space-around',
+        display: 'flex',
+        flexDirection: 'row',
+      }}>
+        <Typography>{props.top}</Typography>
+        <Typography>{props.bottom}</Typography>
+      </Box>
+      <Box sx={{ justifyContent: 'center' }}>
+        <Typography>{props.bottom}</Typography>
+      </Box>
+    </Box>
+  )
+}
+
 const CardTable = (props) => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('id')
@@ -213,7 +240,14 @@ const CardTable = (props) => {
                         <img src={row.icon} alt="cardicon" style={{ height: "60px", padding: 5, marginRight: '7px' }} align="center" />{row.name}
                       </TableCell>
                       <TableCell align="left">{row.stars}</TableCell>
-                      <TableCell align="center">{row.top}{row.right}{row.bottom}{row.left}</TableCell>
+                      <TableCell align="center">
+                        <StatsGrid 
+                          top={row.top}
+                          left={row.left}
+                          right={row.right}
+                          bottom={row.bottom}
+                        />
+                      </TableCell>
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
