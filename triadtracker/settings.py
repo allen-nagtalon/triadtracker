@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'corsheaders',
     'rest_framework',
-    'triadtrackerapp',
+    
+    'triadtrackerapp.apps.TriadtrackerappConfig',
+    'discordlogin.apps.DiscordloginConfig',
 ]
 
 MIDDLEWARE = [
