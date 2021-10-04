@@ -3,10 +3,11 @@ import { makeStyles } from '@mui/material/styles';
 
 import { useTheme } from '@mui/material/styles';
 
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Box from '@mui/material/Box'
-import Link from '@mui/material/Link'
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const NavBar = props => {
     const theme = useTheme();
@@ -19,12 +20,17 @@ const NavBar = props => {
         >
             <AppBar position="static">
                 <Toolbar>
-                    <Link href="/" color="secondary" underline="none">
-                        Home
-                    </Link>
-                    <Link href="/cards" color="secondary" underline="none">
-                        Cards
-                    </Link>
+                    <Typography component="div" sx={{ flexGrow: 1}}>
+                        <Link href="/" color="inherit" underline="none">
+                            Home
+                        </Link>
+                    </Typography>
+                    <Typography component="div" sx={{ flexGrow: 1}}>
+                        <Link href="/cards" color="inherit" underline="none">
+                            Cards
+                        </Link>
+                    </Typography>
+                    
                 </Toolbar>
             </AppBar>
         </Box>
