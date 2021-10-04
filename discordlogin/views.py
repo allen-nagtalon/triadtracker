@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login
 import requests
 import os
 
@@ -13,6 +14,7 @@ def discord_login_redirect(request: HttpRequest):
     code = request.GET.get('code')
 
     user = exchange_code(code)
+    authenticate(request, user=user)
     return JsonResponse({ "user": user })
 
 def exchange_code(code: str):
