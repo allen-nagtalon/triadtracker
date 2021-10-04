@@ -8,5 +8,10 @@ class DiscordAuthenticationBackend(BaseBackend):
             print('User was not found. Saving...')
             new_user = DiscordUser.objects.create_new_discord_user(user)
             return new_user
-        print(find_user[0].discord_tag)
         return find_user[0]
+    
+    def get_user(self, user_id):
+        try:
+            return DiscordUser.objects.get(pk=user_id)
+        except DiscordUser.DoesNotExist:
+            return None

@@ -1,10 +1,15 @@
 from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 import requests
 import os
 
 auth_url_discord = "https://discord.com/api/oauth2/authorize?client_id=894442886697996339&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Foauth2%2Flogin%2Fredirect&response_type=code&scope=identify"
+
+@login_required(login_url="/oauth2/login")
+def get_authenticated_user(request: HttpRequest):
+    return JsonResponse({ "msg": "Authenticated" })
 
 # Create your views here.
 def discord_login(request: HttpRequest):
