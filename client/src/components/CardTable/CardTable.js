@@ -203,7 +203,7 @@ const CardTable = (props) => {
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size='medium'
+            size='small'
           >
             <EnhancedTableHead
               order={order}
