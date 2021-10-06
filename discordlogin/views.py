@@ -20,7 +20,7 @@ def discord_login_redirect(request: HttpRequest):
 
     user = exchange_code(code)
     authenticate(request, user=user)
-    return JsonResponse({ "user": user })
+    return redirect("http://localhost:3000/cards/")
 
 def exchange_code(code: str):
     data = {

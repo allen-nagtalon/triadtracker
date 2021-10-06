@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { makeStyles } from '@mui/material/styles';
 
 import { useTheme } from '@mui/material/styles';
@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const NavBar = props => {
     const theme = useTheme();
@@ -30,7 +31,14 @@ const NavBar = props => {
                             Cards
                         </Link>
                     </Typography>
-                    
+                    <Button 
+                        variant="container"
+                        onClick={() => {
+                            window.location.href = "http://localhost:8000/oauth2/login/"
+                        }}
+                    >
+                        Log In With Discord
+                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>
