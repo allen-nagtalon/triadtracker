@@ -196,6 +196,21 @@ const CardTable = (props) => {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const renderStars = (stars) => {
+    switch(stars) {
+      case 1:
+        return '★';
+      case 2:
+        return '★★';
+      case 3:
+        return '★★★';
+      case 4:
+        return '★★★★';
+      case 5:
+        return '★★★★★';
+    }
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', my: 3 }}>
@@ -239,7 +254,7 @@ const CardTable = (props) => {
                       <TableCell align="left">
                         <img src={row.icon} alt="cardicon" style={{ height: "60px", padding: 5, marginRight: '7px' }} align="center" />{row.name}
                       </TableCell>
-                      <TableCell align="left">{row.stars}</TableCell>
+                      <TableCell align="left">{renderStars(row.stars)}</TableCell>
                       <TableCell align="center">
                         <StatsGrid 
                           top={row.top}
