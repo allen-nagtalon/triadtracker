@@ -2,7 +2,8 @@ import http.client
 import json
 from triadtrackerapp.serializers import TriadCardSerializer
 from .models import TriadCard
-from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.shortcuts import redirect
 
 def populateCards(request):
@@ -37,6 +38,23 @@ def populateCards(request):
 
     return redirect("http://localhost:3000/cards")
 
-class TriadCardList(generics.ListAPIView):
-    queryset = TriadCard.objects.all()
-    serializer_class = TriadCardSerializer
+class TriadCardList(APIView):
+    def get(self, request, format=None):
+        cards = TriadCard.objects.all()
+        serializer = TriadCardSerializer(cards, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        name = request.data.get('name')
+        stars = request.data.get('stars')
+        
+        cards = TriadCard.objects.all()
+        
+        if name != '':
+            cards = cards.filter(name__contains=name)
+
+        if stars != 0:
+            cards = cards.filter(stars=stars)
+
+        serializer = TriadCardSerializer(cards, many=True)
+        return Response(serializer.data)

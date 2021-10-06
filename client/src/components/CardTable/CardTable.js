@@ -153,7 +153,7 @@ const StatsGrid = (props) => {
 
 const CardTable = (props) => {
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('id')
+  const [orderBy, setOrderBy] = useState('id');
   const [selected, setSelected] = useState([]);
 
   const rows = props.cards.map((card) => 
