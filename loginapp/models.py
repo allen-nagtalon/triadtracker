@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from triadtrackerapp.models import DataCenter, Server
 
 class CustomAccountManager(BaseUserManager):
     def create_user(self, username, char_first_name, char_last_name, server, data_center, password, **other_fields):
@@ -39,19 +40,6 @@ class CustomAccountManager(BaseUserManager):
             )
         
         return self.create_user(username, char_first_name, char_last_name, server, data_center, password, **other_fields)
-
-class DataCenter(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    
-    def __str__(self):
-        return self.name
-
-class Server(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    data_center = models.ForeignKey(DataCenter, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)

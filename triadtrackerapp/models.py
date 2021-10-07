@@ -1,6 +1,19 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, URLValidator
 
+class DataCenter(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
+
+class Server(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    data_center = models.ForeignKey(DataCenter, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 class TriadCard(models.Model):
     # Primary Key
     id = models.IntegerField(primary_key=True)
