@@ -33,6 +33,7 @@ const CardList = props => {
         .then(response => response.json())
         .then((data) => {
             setCardsState({ cards: data })
+            console.log(data)
         })
     }, []);
 

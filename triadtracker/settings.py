@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'rest_framework',
     
     'triadtrackerapp.apps.TriadtrackerappConfig',
-    'discordlogin.apps.DiscordloginConfig',
 ]
 
 MIDDLEWARE = [

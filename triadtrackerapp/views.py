@@ -20,7 +20,7 @@ def populateCards(request):
     for card in parsedData['results']:
         values = card['stats']['numeric']
 
-        if TriadCard.objects.filter(id=card['id']) == 0:
+        if len(TriadCard.objects.filter(id=card['id'])) == 0:
             TriadCard.objects.create(
                 id = card['id'],
                 name = card['name'],
