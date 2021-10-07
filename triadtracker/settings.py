@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     
     'triadtrackerapp.apps.TriadtrackerappConfig',
+    'loginapp.apps.LoginappConfig',
 ]
 
 MIDDLEWARE = [

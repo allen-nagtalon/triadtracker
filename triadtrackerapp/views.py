@@ -1,10 +1,38 @@
 import http.client
 import json
+
+from django.http.response import JsonResponse
 from triadtrackerapp.serializers import TriadCardSerializer
 from .models import TriadCard
+from loginapp.models import DataCenter, Server
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import redirect
+
+def populateServers(request):
+    conn = http.client.HTTPSConnection("xivapi.com")
+    payload = ''
+    headers = {}
+    conn.request("GET", "/servers/dc", payload, headers)
+
+    res = conn.getresponse()
+    data = res.read()
+    parsedData = json.loads(data)
+    
+    for data_center_name in parsedData:
+        query = DataCenter.objects.filter(name=data_center_name)
+        if len(query) == 0:
+            data_center = DataCenter.objects.create(name=data_center_name)
+        else: data_center = query[0]
+        print("Data Center:", data_center)
+        for server_name in parsedData[data_center_name]:
+            query = Server.objects.filter(name=server_name)
+            if len(query) == 0:
+                server = Server.objects.create(name=server_name, data_center=data_center)
+            else: server = query[0]
+            print("-", server)
+
+    return JsonResponse(parsedData)
 
 def populateCards(request):
     conn = http.client.HTTPSConnection("triad.raelys.com")

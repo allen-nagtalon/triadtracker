@@ -3,10 +3,16 @@ from django.contrib.auth.models import AbstractBaseUser
 
 class DataCenter(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 class Server(models.Model):
     name = models.CharField(max_length=50, unique=True)
     data_center = models.ForeignKey(DataCenter, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=150, unique=True)
@@ -14,6 +20,7 @@ class CustomUser(AbstractBaseUser):
     char_first_name = models.CharField(max_length=150)
     char_last_name = models.CharField(max_length=150)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
+    data_center = models.ForeignKey(DataCenter, on_delete=models.CASCADE)
 
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
