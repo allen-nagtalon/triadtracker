@@ -36,6 +36,11 @@ const NavBar = props => {
                             Login
                         </Link>
                     </Typography>
+                    <Typography component="div" sx={{ flexGrow: 1}}>
+                        <Link href="/register" color="inherit" underline="none">
+                            Register
+                        </Link>
+                    </Typography>
                 </Toolbar>
             </AppBar>
         </Box>
