@@ -1,8 +1,7 @@
-import { lazy } from 'react';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Box, FormControl, TextField, InputLabel, Container, Select, MenuItem, Button } from '@mui/material';
 import CardTable from '../../components/CardTable';
+import axiosInstance from '../../axios';
 
 const CardList = _ => {
     const [cardsState, setCardsState] = useState({
@@ -20,7 +19,7 @@ const CardList = _ => {
     
     const handleSubmit = event => {
         event.preventDefault()
-        axios.post('http://127.0.0.1:8000/api/cards/', {
+        axiosInstance.post('cards/', {
             name: filterState.name,
             stars: filterState.stars
         })
@@ -28,7 +27,7 @@ const CardList = _ => {
     }
 
     useEffect( () => {
-        axios.get('http://127.0.0.1:8000/api/cards/')
+        axiosInstance.get('cards/')
         .then(response => setCardsState({ cards: response.data }))
     }, []);
 

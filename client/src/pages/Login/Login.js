@@ -1,9 +1,12 @@
-import axios from "axios";
 import { useState } from 'react';
 import { Container } from "@mui/material";
 import AuthForm from "../../components/AuthForm";
+import { useHistory } from "react-router";
+import axiosInstance from "../../axios";
 
 const Login = _ => {
+    const history = useHistory()
+    
     const [formState, setFormState] = useState({
         username: '',
         password: ''
@@ -15,13 +18,16 @@ const Login = _ => {
 
     const handleLoginUser = event => {
         event.preventDefault()
-        console.log(formState)
-        axios.post('http://127.0.0.1:8000/api/token/', {
+        axiosInstance.post('token/', {
             username: formState.username,
             password: formState.password
         })
-        .then((data) => {
-            console.log(data)
+        .then((res) => {
+            localStorage.setItem('access_token', res.data.access);
+            localStorage.setItem('refresh_token', res.data.refresh);
+            axiosInstance.defaults.headers['Authorization'] =
+                'JWT ' + localStorage.getItem('access_token');
+            history.push('/cards');
         })
     }
 
