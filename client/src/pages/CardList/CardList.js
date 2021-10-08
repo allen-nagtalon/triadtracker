@@ -1,9 +1,10 @@
+import { lazy } from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Box, FormControl, TextField, InputLabel, Container, Select, MenuItem, Button } from '@mui/material';
 import CardTable from '../../components/CardTable';
 
-const CardList = props => {
+const CardList = _ => {
     const [cardsState, setCardsState] = useState({
         cards: []
     })
@@ -27,14 +28,8 @@ const CardList = props => {
     }
 
     useEffect( () => {
-        console.log("Fetching...")
-
-        fetch('http://127.0.0.1:8000/api/cards/')
-        .then(response => response.json())
-        .then((data) => {
-            setCardsState({ cards: data })
-            console.log(data)
-        })
+        axios.get('http://127.0.0.1:8000/api/cards/')
+        .then(response => setCardsState({ cards: response.data }))
     }, []);
 
     return (

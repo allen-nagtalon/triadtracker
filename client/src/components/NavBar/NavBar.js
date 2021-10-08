@@ -31,14 +31,11 @@ const NavBar = props => {
                             Cards
                         </Link>
                     </Typography>
-                    <Button 
-                        variant="container"
-                        onClick={() => {
-                            window.location.href = "http://localhost:8000/oauth2/login/"
-                        }}
-                    >
-                        Log In With Discord
-                    </Button>
+                    <Typography component="div" sx={{ flexGrow: 1}}>
+                        <Link href="/login" color="inherit" underline="none">
+                            Login
+                        </Link>
+                    </Typography>
                 </Toolbar>
             </AppBar>
         </Box>

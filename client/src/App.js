@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 
 import Landing from './pages/Landing';
 import CardList from './pages/CardList';
+import Login from './pages/Login';
 import NavBar from './components/NavBar';
 
 const theme = createTheme({
@@ -30,6 +31,7 @@ function App() {
           <Switch>
             <Route component={Landing} exact path='/' />
             <Route component={CardList} path='/cards' />
+            <Route component={Login} path='/login' />
           </Switch>
         </BrowserRouter>
     </ThemeProvider>  
