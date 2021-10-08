@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container } from "@mui/material";
 import AuthForm from "../../components/AuthForm";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import axiosInstance from "../../axios";
 
 const Login = _ => {
