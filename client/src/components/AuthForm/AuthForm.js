@@ -1,7 +1,6 @@
-import { FormControl, TextField, Button, Select, InputLabel, MenuItem, ListSubheader } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import axiosInstance from '../../axios';
+import { FormControl, TextField, Button, Select, InputLabel, MenuItem } from '@mui/material'
+import { useEffect, useState } from 'react'
+import axiosInstance from '../../axios'
 
 const AuthForm = props => {
   const [serverState, setServerState] = useState({
@@ -13,16 +12,16 @@ const AuthForm = props => {
   })
 
   const getServers = (servers, dataCenter) => {
-      const result = servers.filter((server) => server.data_center === dataCenter)
-      return result
+    const result = servers.filter((server) => server.data_center === dataCenter)
+    return result
   }
 
   useEffect(() => {
     axiosInstance.get('servers/')
-        .then((res) => setServerState({ servers: res.data }))
+      .then((res) => setServerState({ servers: res.data }))
 
     axiosInstance.get('data-centers/')
-        .then((res) => setDataCenterState({ dataCenters: res.data }))
+      .then((res) => setDataCenterState({ dataCenters: res.data }))
   }, [])
 
   return (
@@ -99,9 +98,9 @@ const AuthForm = props => {
                 {
                   getServers(serverState.servers, props.formState.data_center)
                     .map((server) => {
-                        return (
-                            <MenuItem key={server.id} value={server.id}>{server.name}</MenuItem>
-                        )
+                      return (
+                        <MenuItem key={server.id} value={server.id}>{server.name}</MenuItem>
+                      )
                     })
                 }
               </Select>

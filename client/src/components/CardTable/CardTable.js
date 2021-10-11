@@ -1,19 +1,9 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import { visuallyHidden } from '@mui/utils';
-import { Typography } from '@mui/material';
+import { useState } from 'react'
+import PropTypes from 'prop-types'
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Paper, Checkbox, Typography } from '@mui/material'
+import { visuallyHidden } from '@mui/utils'
 
-function createData(id, name, icon, stars, top, right, bottom, left) {
+function createData (id, name, icon, stars, top, right, bottom, left) {
   return {
     id,
     name,
@@ -22,36 +12,36 @@ function createData(id, name, icon, stars, top, right, bottom, left) {
     top,
     right,
     bottom,
-    left,
-  };
+    left
+  }
 }
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator (a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
-    return -1;
+    return -1
   }
   if (b[orderBy] > a[orderBy]) {
-    return 1;
+    return 1
   }
-  return 0;
+  return 0
 }
 
-function getComparator(order, orderBy) {
+function getComparator (order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+function stableSort (array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
+    const order = comparator(a[0], b[0])
     if (order !== 0) {
-      return order;
+      return order
     }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+    return a[1] - b[1]
+  })
+  return stabilizedThis.map((el) => el[0])
 }
 
 const headCells = [
@@ -78,15 +68,15 @@ const headCells = [
     centered: true,
     disablePadding: false,
     label: 'Stats'
-  },
+  }
 ]
 
 const EnhancedTableHead = (props) => {
   const { order, orderBy, onRequestSort } =
-    props;
+    props
   const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+    onRequestSort(event, property)
+  }
 
   return (
     <TableHead>
@@ -104,43 +94,46 @@ const EnhancedTableHead = (props) => {
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
+              {orderBy === headCell.id
+                ? (
+                  <Box component='span' sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                  )
+                : null}
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell padding="checkbox" />
+        <TableCell padding='checkbox' />
       </TableRow>
     </TableHead>
-  );
+  )
 }
 
 EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
+  rowCount: PropTypes.number.isRequired
+}
 
 const StatsGrid = (props) => {
   return (
     <Box
       sx={{
-      display: 'flex',
-      flexDirection: 'column',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       <Box sx={{ justifyContent: 'center' }}>
         <Typography>{props.top}</Typography>
       </Box>
-      <Box sx={{ 
+      <Box sx={{
         justifyContent: 'space-around',
         display: 'flex',
-        flexDirection: 'row',
-      }}>
+        flexDirection: 'row'
+      }}
+      >
         <Typography>{props.top}</Typography>
         <Typography>{props.bottom}</Typography>
       </Box>
@@ -152,64 +145,64 @@ const StatsGrid = (props) => {
 }
 
 const CardTable = (props) => {
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('id');
-  const [selected, setSelected] = useState([]);
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('id')
+  const [selected, setSelected] = useState([])
 
-  const rows = props.cards.map((card) => 
+  const rows = props.cards.map((card) =>
     createData(
-      card.id, 
-      card.name, 
-      card.icon, 
-      card.stars, 
-      card.topValue, 
-      card.rightValue, 
-      card.bottomValue, 
+      card.id,
+      card.name,
+      card.icon,
+      card.stars,
+      card.topValue,
+      card.rightValue,
+      card.bottomValue,
       card.leftValue)
   )
-  
+
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
   }
 
   const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
+    const selectedIndex = selected.indexOf(name)
+    let newSelected = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, name)
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+        selected.slice(selectedIndex + 1)
+      )
     }
 
-    setSelected(newSelected);
+    setSelected(newSelected)
   }
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => selected.indexOf(name) !== -1
 
   const renderStars = (stars) => {
-    switch(stars) {
+    switch (stars) {
       case 1:
-        return '★';
+        return '★'
       case 2:
-        return '★★';
+        return '★★'
       case 3:
-        return '★★★';
+        return '★★★'
       case 4:
-        return '★★★★';
+        return '★★★★'
       case 5:
-        return '★★★★★';
+        return '★★★★★'
       default:
-        return 'Error';
+        return 'Error'
     }
   }
 
@@ -219,7 +212,7 @@ const CardTable = (props) => {
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
+            aria-labelledby='tableTitle'
             size='small'
           >
             <EnhancedTableHead
@@ -231,51 +224,51 @@ const CardTable = (props) => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const isItemSelected = isSelected(row.name)
+                  const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell
-                        component="th"
+                        component='th'
                         id={labelId}
-                        scope="row"
-                        padding="none"
-                        align="center"
+                        scope='row'
+                        padding='none'
+                        align='center'
                       >
                         {row.id}
                       </TableCell>
-                      <TableCell align="left">
-                        <img src={row.icon} alt="cardicon" style={{ height: "60px", padding: 5, marginRight: '7px' }} align="center" />{row.name}
+                      <TableCell align='left'>
+                        <img src={row.icon} alt='cardicon' style={{ height: '60px', padding: 5, marginRight: '7px' }} align='center' />{row.name}
                       </TableCell>
-                      <TableCell align="left">{renderStars(row.stars)}</TableCell>
-                      <TableCell align="center">
-                        <StatsGrid 
+                      <TableCell align='left'>{renderStars(row.stars)}</TableCell>
+                      <TableCell align='center'>
+                        <StatsGrid
                           top={row.top}
                           left={row.left}
                           right={row.right}
                           bottom={row.bottom}
                         />
                       </TableCell>
-                      <TableCell padding="checkbox">
+                      <TableCell padding='checkbox'>
                         <Checkbox
-                          color="primary"
+                          color='primary'
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId,
+                            'aria-labelledby': labelId
                           }}
                         />
                       </TableCell>
                     </TableRow>
-                  );
+                  )
                 })}
             </TableBody>
           </Table>

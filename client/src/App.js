@@ -1,19 +1,18 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
-import Box from '@mui/material/Box';
+import { CssBaseline } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
-import Landing from './pages/Landing';
-import CardList from './pages/CardList';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import NavBar from './components/NavBar';
+import Landing from './pages/Landing'
+import CardList from './pages/CardList'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import NavBar from './components/NavBar'
 
 const theme = createTheme({
   palette: {
-    type: 'dark',
+    type: 'dark'
   },
   typography: {
     h6: {
@@ -22,13 +21,13 @@ const theme = createTheme({
   }
 })
 
-function App() {
+function App () {
   return (
     <Box mt={2}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <NavBar/>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <NavBar />
           <Switch>
             <Route component={Landing} exact path='/' />
             <Route component={CardList} path='/cards' />
@@ -36,9 +35,9 @@ function App() {
             <Route component={Register} path='/register' />
           </Switch>
         </BrowserRouter>
-    </ThemeProvider>  
+      </ThemeProvider>
     </Box>
-  );
+  )
 }
 
-export default App;
+export default App
