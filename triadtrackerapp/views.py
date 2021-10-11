@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from triadtrackerapp.serializers import DataCenterSerializer, ServerSerializer, TriadCardSerializer
 from triadtrackerapp.models import TriadCard, DataCenter, Server
@@ -69,6 +70,8 @@ def populateCards(request):
     return redirect("http://localhost:3000/cards")
 
 class TriadCardList(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, format=None):
         cards = TriadCard.objects.all()
         serializer = TriadCardSerializer(cards, many=True)
