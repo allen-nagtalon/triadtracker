@@ -208,6 +208,8 @@ const CardTable = (props) => {
         return '★★★★';
       case 5:
         return '★★★★★';
+      default:
+        return 'Error';
     }
   }
 

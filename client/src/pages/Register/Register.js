@@ -17,7 +17,11 @@ const Register = _ => {
     })
 
     const handleInputChange = ({target}) => {
-        setFormState({ ...formState, [target.name]: target.value})
+        if (target.name === "data_center") {
+            setFormState({ ...formState, server: 0, data_center: target.value })
+        } else {
+            setFormState({ ...formState, [target.name]: target.value})
+        }
     }
 
     const handleRegisterUser = event => {
