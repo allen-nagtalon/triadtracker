@@ -13,7 +13,6 @@ const AuthForm = props => {
   })
 
   const getServers = (servers, dataCenter) => {
-      console.log(serverState)
       const result = servers.filter((server) => server.data_center === dataCenter)
       return result
   }

@@ -22,11 +22,12 @@ const Register = _ => {
         } else {
             setFormState({ ...formState, [target.name]: target.value})
         }
+        console.log(formState)
     }
 
     const handleRegisterUser = event => {
         event.preventDefault()
-        axiosInstance.post('user/register', {
+        axiosInstance.post('user/register/', {
             username: formState.username,
             char_first_name: formState.char_first_name,
             char_last_name: formState.char_last_name,
