@@ -104,7 +104,11 @@ const EnhancedTableHead = (props) => {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell padding='checkbox' />
+        {
+          window.localStorage.getItem('access_token')
+            ? <TableCell padding='checkbox' />
+            : null
+        }
       </TableRow>
     </TableHead>
   )
@@ -258,15 +262,20 @@ const CardTable = (props) => {
                           bottom={row.bottom}
                         />
                       </TableCell>
-                      <TableCell padding='checkbox'>
-                        <Checkbox
-                          color='primary'
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId
-                          }}
-                        />
-                      </TableCell>
+
+                      {window.localStorage.getItem('access_token')
+                        ? <>
+                          <TableCell padding='checkbox'>
+                            <Checkbox
+                              color='primary'
+                              checked={isItemSelected}
+                              inputProps={{
+                                'aria-labelledby': labelId
+                              }}
+                            />
+                          </TableCell>
+                        </>
+                        : null}
                     </TableRow>
                   )
                 })}
