@@ -22,7 +22,6 @@ const Register = _ => {
     } else {
       setFormState({ ...formState, [target.name]: target.value })
     }
-    console.log(formState)
   }
 
   const handleRegisterUser = event => {
