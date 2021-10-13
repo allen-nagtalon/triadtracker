@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from triadtrackerapp.models import DataCenter, Server
+from triadtrackerapp.models import DataCenter, Server, TriadCard
 
 class CustomAccountManager(BaseUserManager):
     def create_user(self, username, char_first_name, char_last_name, server, data_center, password, **other_fields):
@@ -62,3 +62,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+class CardOwnership(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    card = models.ForeignKey(TriadCard, on_delete=models.CASCADE)
+    owned = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
