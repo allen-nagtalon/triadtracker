@@ -1,16 +1,22 @@
 import http.client
 import json
+import re
 
 from django.http.response import JsonResponse
 from django.shortcuts import redirect
+from rest_framework import serializers
 
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from triadtrackerapp.serializers import DataCenterSerializer, ServerSerializer, TriadCardSerializer
 from triadtrackerapp.models import TriadCard, DataCenter, Server
+from loginapp.serializers import CardOwnershipSerializer
+from loginapp.models import CardOwnership
+
+regex = re.compile('^HTTP_')
 
 def populateServers(request):
     conn = http.client.HTTPSConnection("xivapi.com")
@@ -99,3 +105,11 @@ class ServerList(ListAPIView):
 class DataCenterList(ListAPIView):
     queryset = DataCenter.objects.all()
     serializer_class = DataCenterSerializer
+
+class CardOwnershipList(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        users_cards = CardOwnership.objects.filter(id=request.user.id)
+        serializer = CardOwnershipSerializer(users_cards, many=True)
+        
+        return Response(serializer.data)
