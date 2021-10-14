@@ -58,9 +58,9 @@ axiosInstance.interceptors.response.use(
               window.localStorage.setItem('access_token', response.data.access)
               window.localStorage.setItem('refresh_token', response.data.refresh)
 
-              axiosInstance.defaults.headers.Authoriation =
+              axiosInstance.defaults.headers.Authorization =
                   'JWT ' + response.data.access
-              originalRequest.headers.Authoriation =
+              originalRequest.headers.Authorization =
                   'JWT ' + response.data.access
 
               return axiosInstance(originalRequest)
