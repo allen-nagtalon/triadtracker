@@ -22,7 +22,7 @@ class CustomUserCreate(APIView):
             return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BlacklistTokenView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         try: 

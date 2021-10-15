@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Paper, Checkbox, Typography } from '@mui/material'
 import { visuallyHidden } from '@mui/utils'
+import axiosInstance from '../../axios'
+import axios from 'axios'
 
 function createData (id, name, icon, stars, top, right, bottom, left) {
   return {
@@ -148,10 +150,42 @@ const StatsGrid = (props) => {
   )
 }
 
+const OwnedCheckbox = (props) => {
+  const handleChecked = (event) => {
+    props.handleChecked(event.target.checked, props.card)
+  }
+
+  return (
+    <Checkbox
+      color='primary'
+      checked={props.checked}
+      onChange={handleChecked}
+    />
+  )
+}
+
 const CardTable = (props) => {
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('id')
-  const [selected, setSelected] = useState([])
+  const [ownedState, setOwnedState] = useState([])
+
+  useEffect(() => {
+    if (window.localStorage.getItem('access_token')) {
+      axiosInstance.get('owned-cards/')
+        .then(response => setOwnedState(response.data.map(el => el.owned)))
+    }
+  }, [])
+
+  const handleChecked = (value, card) => {
+    const temp = [...ownedState]
+    temp[card - 1] = value
+    setOwnedState(temp)
+
+    axiosInstance.post('owned-cards/update/', {
+      card: card,
+      value: value
+    })
+  }
 
   const rows = props.cards.map((card) =>
     createData(
@@ -170,28 +204,6 @@ const CardTable = (props) => {
     setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
   }
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      )
-    }
-
-    setSelected(newSelected)
-  }
-
-  const isSelected = (name) => selected.indexOf(name) !== -1
 
   const renderStars = (stars) => {
     switch (stars) {
@@ -228,18 +240,14 @@ const CardTable = (props) => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name)
                   const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
                       role='checkbox'
-                      aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
-                      selected={isItemSelected}
                     >
                       <TableCell
                         component='th'
@@ -266,12 +274,10 @@ const CardTable = (props) => {
                       {window.localStorage.getItem('access_token')
                         ? <>
                           <TableCell padding='checkbox'>
-                            <Checkbox
-                              color='primary'
-                              checked={isItemSelected}
-                              inputProps={{
-                                'aria-labelledby': labelId
-                              }}
+                            <OwnedCheckbox
+                              card={row.id}
+                              checked={ownedState[index]}
+                              handleChecked={handleChecked}
                             />
                           </TableCell>
                         </>

@@ -9,5 +9,6 @@ urlpatterns = [
     path('cards/', views.TriadCardList.as_view()),
     path('servers/', views.ServerList.as_view()),
     path('data-centers/', views.DataCenterList.as_view()),
-    path('owned-cards/', views.CardOwnershipList.as_view())
+    path('owned-cards/', views.CardOwnershipList.as_view()),
+    path('owned-cards/update/', views.CardOwnershipUpdate.as_view())
 ]

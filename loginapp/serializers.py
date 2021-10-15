@@ -18,4 +18,4 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class CardOwnershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = CardOwnership
-        fields = ('user', 'card', 'owned')
+        fields = ('card', 'owned')

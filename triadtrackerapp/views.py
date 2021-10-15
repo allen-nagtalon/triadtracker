@@ -4,8 +4,8 @@ import re
 
 from django.http.response import JsonResponse
 from django.shortcuts import redirect
-from rest_framework import serializers
 
+from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -109,7 +109,18 @@ class DataCenterList(ListAPIView):
 class CardOwnershipList(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
-        users_cards = CardOwnership.objects.filter(id=request.user.id)
+        users_cards = CardOwnership.objects.filter(user=request.user.id)
         serializer = CardOwnershipSerializer(users_cards, many=True)
         
         return Response(serializer.data)
+
+class CardOwnershipUpdate(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request, format=None):
+        ownership = CardOwnership.objects.filter(user=request.user.id, card=request.data.get('card'))
+        if len(ownership) is not 0:
+            ownership[0].owned = request.data.get('value')
+            ownership[0].save()
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
