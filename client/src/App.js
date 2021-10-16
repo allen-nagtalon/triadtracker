@@ -12,11 +12,12 @@ import NavBar from './components/NavBar'
 
 const theme = createTheme({
   palette: {
-    type: 'dark'
-  },
-  typography: {
-    h6: {
-      fontWeight: 100
+    type: 'dark',
+    primary: {
+      main: '#262626'
+    },
+    secondary: {
+      main: '#ffdf00'
     }
   }
 })
