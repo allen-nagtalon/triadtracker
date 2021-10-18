@@ -1,4 +1,4 @@
-import { FormControl, TextField, Button, Select, InputLabel, MenuItem } from '@mui/material'
+import { FormControl, TextField, Button, Select, InputLabel, MenuItem, Box } from '@mui/material'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../axios'
 
@@ -26,12 +26,15 @@ const AuthForm = props => {
 
   return (
     <form noValidate autoComplete='off' onSubmit={props.handleSubmit}>
+      <hr />
+      <br />
       <TextField
         id='username'
         name='username'
         value={props.formState.username}
         onChange={props.handleInputChange}
         label='Username'
+        fullWidth
       />
       <br /> <br />
 
@@ -117,13 +120,20 @@ const AuthForm = props => {
         onChange={props.handleInputChange}
         label='Password'
         type='password'
+        fullWidth
       />
       <br /> <br />
-      <Button
-        type='submit'
-      >
-        {(props.register) ? 'Register' : 'Login'}
-      </Button>
+      <Box sx={{ mx: 20 }}>
+        <Button
+          type='submit'
+          variant='contained'
+          fullWidth
+        >
+          {(props.register) ? 'Register' : 'Login'}
+        </Button>
+      </Box>
+      <br />
+      <hr />
     </form>
   )
 }
