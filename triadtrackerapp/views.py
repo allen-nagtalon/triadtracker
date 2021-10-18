@@ -99,10 +99,12 @@ class TriadCardList(APIView):
         return Response(serializer.data)
 
 class ServerList(ListAPIView):
+    permission_classes = [AllowAny]
     queryset = Server.objects.all()
     serializer_class = ServerSerializer
 
 class DataCenterList(ListAPIView):
+    permission_classes = [AllowAny]
     queryset = DataCenter.objects.all()
     serializer_class = DataCenterSerializer
 
@@ -118,7 +120,7 @@ class CardOwnershipUpdate(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request, format=None):
         ownership = CardOwnership.objects.filter(user=request.user.id, card=request.data.get('card'))
-        if len(ownership) is not 0:
+        if len(ownership) != 0:
             ownership[0].owned = request.data.get('value')
             ownership[0].save()
             return Response(status=status.HTTP_200_OK)
