@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import CardList from './pages/CardList'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Logout from './components/Logout'
 import NavBar from './components/NavBar'
 
 import { ThemeProvider } from '@mui/material/styles'
@@ -21,6 +22,7 @@ function App () {
           <Route component={CardList} path='/cards' />
           <Route component={Login} path='/login' />
           <Route component={Register} path='/register' />
+          <Route component={Logout} path='/logout' />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

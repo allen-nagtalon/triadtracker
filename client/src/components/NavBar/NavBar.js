@@ -38,22 +38,41 @@ const NavBar = props => {
               </Link>
             </Typography>
           </Box>
-          <Typography
-            component='div'
-            sx={{ mx: 2 }}
-          >
-            <Link href='/login' color='inherit' underline='none'>
-              Login
-            </Link>
-          </Typography>
-          <Typography
-            component='div'
-            sx={{ mx: 2 }}
-          >
-            <Link href='/register' color='inherit' underline='none'>
-              Register
-            </Link>
-          </Typography>
+          {window.localStorage.getItem('access_token')
+            ? <>
+              <Typography
+                component='div'
+                sx={{ mx: 2 }}
+              >
+                Hello User!
+              </Typography>
+              <Typography
+                component='div'
+                sx={{ mx: 2 }}
+              >
+                <Link href='/logout' color='inherit' underline='none'>
+                  Logout
+                </Link>
+              </Typography>
+            </>
+            : <>
+              <Typography
+                component='div'
+                sx={{ mx: 2 }}
+              >
+                <Link href='/login' color='inherit' underline='none'>
+                  Login
+                </Link>
+              </Typography>
+              <Typography
+                component='div'
+                sx={{ mx: 2 }}
+              >
+                <Link href='/register' color='inherit' underline='none'>
+                  Register
+                </Link>
+              </Typography>
+            </>}
         </Toolbar>
       </AppBar>
     </Box>

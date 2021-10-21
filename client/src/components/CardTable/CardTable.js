@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Paper, Checkbox, Typography } from '@mui/material'
 import { visuallyHidden } from '@mui/utils'
 import axiosInstance from '../../axios'
-import axios from 'axios'
 
 function createData (id, name, icon, stars, top, right, bottom, left) {
   return {
