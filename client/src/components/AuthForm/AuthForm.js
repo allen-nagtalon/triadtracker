@@ -1,4 +1,4 @@
-import { FormControl, TextField, Button, Select, InputLabel, MenuItem, Box } from '@mui/material'
+import { FormControl, TextField, Button, Select, InputLabel, MenuItem, Box, FormLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../axios'
 
@@ -41,29 +41,28 @@ const AuthForm = props => {
       {
         (props.register)
           ? <>
-            <TextField
-              id='char_first_name'
-              name='char_first_name'
-              value={props.formState.char_first_name}
-              onChange={props.handleInputChange}
-              label='First Name'
-            />
+            <FormControl>
+              <FormLabel>Character Info</FormLabel>
+              <Box component='div' sx={{ display: 'flex' }}>
+                <TextField
+                  id='char_first_name'
+                  name='char_first_name'
+                  value={props.formState.char_first_name}
+                  onChange={props.handleInputChange}
+                  sx={{ mr: 2 }}
+                  label='First Name'
+                />
+                <br /> <br />
+                <TextField
+                  id='char_last_name'
+                  name='char_last_name'
+                  value={props.formState.char_last_name}
+                  onChange={props.handleInputChange}
+                  label='Last Name'
+                />
+              </Box>
+            </FormControl>
             <br /> <br />
-            <TextField
-              id='char_last_name'
-              name='char_last_name'
-              value={props.formState.char_last_name}
-              onChange={props.handleInputChange}
-              label='Last Name'
-            />
-            <br /> <br />
-          </>
-          : null
-      }
-
-      {
-        (props.register)
-          ? <>
             <FormControl>
               <InputLabel id='data-center-label'>Data Center</InputLabel>
               <Select

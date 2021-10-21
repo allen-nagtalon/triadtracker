@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container } from '@mui/material'
+import { Container, Paper, Box, Typography, Link } from '@mui/material'
 import { useHistory } from 'react-router-dom'
 import axiosInstance from '../../axios'
 import AuthForm from '../../components/AuthForm'
@@ -40,13 +40,30 @@ const Register = _ => {
   }
 
   return (
-    <Container maxWidth='sm'>
-      <AuthForm
-        register
-        formState={formState}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleRegisterUser}
-      />
+    <Container maxWidth='sm' sx={{ mt: 6 }}>
+      <Paper elevation={2}>
+        <Box sx={{ padding: 8 }}>
+          <Typography variant='h4' align='center'>
+            Create a Triad Tracker Account!
+          </Typography>
+          <Typography align='center'>
+            Start your collection today!
+          </Typography>
+          <br />
+          <AuthForm
+            register
+            formState={formState}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleRegisterUser}
+          />
+          <br />
+          <Typography component='div'>
+            <Link href='/login'>
+              Already signed up? Log in!
+            </Link>
+          </Typography>
+        </Box>
+      </Paper>
     </Container>
   )
 }
