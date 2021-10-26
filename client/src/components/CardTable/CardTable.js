@@ -177,7 +177,7 @@ const CardTable = (props) => {
 
   const handleChecked = (value, card) => {
     const temp = [...ownedState]
-    temp[card - 1] = value
+    temp[card] = value
     setOwnedState(temp)
 
     axiosInstance.post('owned-cards/update/', {
@@ -275,7 +275,7 @@ const CardTable = (props) => {
                           <TableCell padding='checkbox'>
                             <OwnedCheckbox
                               card={row.id}
-                              checked={ownedState[index]}
+                              checked={ownedState[row.id]}
                               handleChecked={handleChecked}
                             />
                           </TableCell>
