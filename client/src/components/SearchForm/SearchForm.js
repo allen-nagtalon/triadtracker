@@ -19,32 +19,35 @@ const SearchForm = (props) => {
   return (
     <Box component='div' display='grid' sx={{ display: 'inline' }}>
       <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-        <TextField id='name' name='name' label='Name' value={filterState.name} variant='outlined' size='small' onChange={handleChange} />
-        <FormControl>
-          <InputLabel id='stars-label'>Rarity</InputLabel>
-          <Select
-            labelId='stars-label'
-            id='stars'
-            name='stars'
-            value={filterState.stars}
-            label='Stars'
-            onChange={handleChange}
-            size='small'
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <TextField id='name' name='name' label='Name' value={filterState.name} variant='outlined' size='small' sx={{ flexGrow: 1 }} onChange={handleChange} />
+          <FormControl>
+            <InputLabel id='stars-label'>Rarity</InputLabel>
+            <Select
+              labelId='stars-label'
+              id='stars'
+              name='stars'
+              value={filterState.stars}
+              label='Stars'
+              onChange={handleChange}
+              size='small'
+              sx={{ mx: 2 }}
+            >
+              <MenuItem value={0}>All Rarities</MenuItem>
+              <MenuItem value={5}>★★★★★</MenuItem>
+              <MenuItem value={4}>★★★★</MenuItem>
+              <MenuItem value={3}>★★★</MenuItem>
+              <MenuItem value={2}>★★</MenuItem>
+              <MenuItem value={1}>★</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            type='submit'
+            variant='contained'
           >
-            <MenuItem value={0}>All Rarities</MenuItem>
-            <MenuItem value={5}>★★★★★</MenuItem>
-            <MenuItem value={4}>★★★★</MenuItem>
-            <MenuItem value={3}>★★★</MenuItem>
-            <MenuItem value={2}>★★</MenuItem>
-            <MenuItem value={1}>★</MenuItem>
-          </Select>
-        </FormControl>
-        <Button
-          type='submit'
-          variant='contained'
-        >
-          Search
-        </Button>
+            Search
+          </Button>
+        </Box>
       </form>
     </Box>
   )

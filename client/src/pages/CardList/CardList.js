@@ -24,6 +24,7 @@ const CardList = _ => {
 
   return (
     <Container maxWidth='md'>
+      <br />
       <SearchForm handleSearchSubmit={handleSearchSubmit} />
       <CardTable
         cards={cardsState.cards}
