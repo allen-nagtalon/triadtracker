@@ -1,12 +1,22 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
+import axiosInstance from '../../axios'
 
 const NavBar = props => {
+  const [user, setUser] = useState('')
+
+  useEffect(() => {
+    if (window.localStorage.getItem('access_token')) {
+      axiosInstance.get('user/auth-detail/')
+        .then(response => setUser(response.data.username))
+    }
+  }, [])
+
   return (
     <Box
       sx={{
@@ -44,7 +54,7 @@ const NavBar = props => {
                 component='div'
                 sx={{ mx: 2 }}
               >
-                Hello User!
+                Hello, {user}!
               </Typography>
               <Typography
                 component='div'
