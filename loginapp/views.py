@@ -1,10 +1,11 @@
-from rest_framework import status
+from typing import Generic
+from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import RegisterUserSerializer
-from loginapp.models import CardOwnership
+from .serializers import RegisterUserSerializer, UserSerializer
+from loginapp.models import CustomUser, CardOwnership
 from triadtrackerapp.models import TriadCard
 
 class CustomUserCreate(APIView):
@@ -31,3 +32,10 @@ class BlacklistTokenView(APIView):
             token.blacklist()
         except Exception as e:
             return Response(status=status.HTTP_4000_BAD_REQUEST)
+
+class UserDetail(APIView):
+    def get(self, request, format=None):
+        user = CustomUser.objects.get(id=request.user.id)
+        serializer = UserSerializer(user, many=False)
+
+        return Response(serializer.data)

@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from loginapp.models import CardOwnership, CustomUser
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('username',)
+
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
