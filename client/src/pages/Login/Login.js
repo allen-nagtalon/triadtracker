@@ -39,7 +39,7 @@ const Login = _ => {
             Welcome to Triad Tracker!
           </Typography>
           <Typography align='center'>
-            Insert subtext here.
+            Log in to start tracking your collection!
           </Typography>
           <br />
           <AuthForm
