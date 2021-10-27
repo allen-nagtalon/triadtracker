@@ -1,0 +1,1 @@
+web: gunicorn triadtracker.wsgi --log-file -
