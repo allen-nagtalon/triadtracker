@@ -3,8 +3,8 @@ import json
 import re
 import os
 
-from django.http.response import HttpResponse, JsonResponse
-from django.http import HttpResponseNotFound
+from django.http.response import JsonResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.views import View
 
