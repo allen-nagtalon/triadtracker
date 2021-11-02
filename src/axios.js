@@ -83,4 +83,7 @@ axiosInstance.interceptors.response.use(
   }
 )
 
+axiosInstance.defaults.xsrfCookieName = 'csrftoken'
+axiosInstance.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 export default axiosInstance
